@@ -1,0 +1,28 @@
+{
+  "name": "githubasana",
+  "version": "1.0.0",
+  "description": "Small NodeJS script to ease the pain of creating PRs and copy/pasting Asana's descriptions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crhraphael/GithubAsana.git"
+  },
+  "keywords": [
+    "Asana",
+    "Github",
+    "API",
+    "NodeJS",
+    "Integration",
+    "PRs",
+    "Tasks"
+  ],
+  "author": "Crhistian Raphael",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crhraphael/GithubAsana/issues"
+  },
+  "homepage": "https://github.com/crhraphael/GithubAsana#readme"
+}
