@@ -1,9 +1,11 @@
 require('dotenv').load();
 const request = require('request');
-var github = require('octonode');
+const github = require('octonode');
+const fs = require('fs');
 
 var client = github.client(process.env.GITHUB_TOKEN);
 var ghrepo = client.repo('crhraphael/GithubAsana');
+var cwd = process.cwd();
 
 var prBody = {
     "title": "First PR",
@@ -12,6 +14,19 @@ var prBody = {
     "base": "master"
 };
 
-ghrepo.pr(prBody, function(res) {
-    console.log(res.body);
-});
+var headFilePath = `${cwd}/.git/HEAD`;
+fs.readFile(headFilePath, function(err, data) {
+    if(err) return false;
+
+    const branchName = data.toString().split(':')[1].split('\\')[0].trim()
+
+    var prBody = {
+        "title": "Adding branch name recognition",
+        "body": "It creates a PR based on the current branch",
+        "head": branchName,
+        "base": "master"
+    };
+    ghrepo.pr(prBody, function(res) {
+        console.log(res);
+    });
+})
