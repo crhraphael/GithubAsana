@@ -8,7 +8,7 @@ var ghrepo = client.repo('crhraphael/GithubAsana');
 var prBody = {
     "title": "First PR",
     "body": "Is this real life?!",
-    "head": "master",
+    "head": "github-integration",
     "base": "master"
 };
 
