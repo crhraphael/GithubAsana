@@ -41,4 +41,3 @@ console.log(repoName);
     // ghrepo.pr(prBody, function(res) {
     //     console.log(res);
     // });
-// })
