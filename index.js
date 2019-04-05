@@ -4,7 +4,7 @@ const github = require('octonode');
 const fs = require('fs');
 
 var client = github.client(process.env.GITHUB_TOKEN);
-var ghrepo = client.repo('crhraphael/GithubAsana');
+var ghrepo = client.repo('crhraphael/gitbasan');
 var cwd = process.cwd();
 
 var prBody = {
@@ -15,10 +15,20 @@ var prBody = {
 };
 
 var headFilePath = `${cwd}/.git/HEAD`;
-fs.readFile(headFilePath, function(err, data) {
-    if(err) return false;
+if(!fs.existsSync(headFilePath)) {
+    throw new Error(`O CLI não encontrou as configurações do repositório neste diretório.`);
+}
+var configFilePath = `${cwd}/.git/config`;
+if(!fs.existsSync(configFilePath)) {
+    throw new Error(`O CLI não encontrou as configurações do repositório neste diretório.`);
+}
 
-    const branchName = data.toString().split(':')[1].split('\\')[0].trim()
+let headFile = fs.readFileSync(headFilePath);
+const branchName = headFile.toString().split(':')[1].split('\\')[0].trim()
+
+let configFile = fs.readFileSync(configFilePath).toString();
+const repoName = configFile.match(/url\ =\ (.*)\n/gm)[0].trim().split(':')[1]
+console.log(repoName);
 
     var prBody = {
         "title": "Adding branch name recognition",
@@ -26,7 +36,9 @@ fs.readFile(headFilePath, function(err, data) {
         "head": branchName,
         "base": "master"
     };
-    ghrepo.pr(prBody, function(res) {
-        console.log(res);
-    });
-})
+
+
+    // ghrepo.pr(prBody, function(res) {
+    //     console.log(res);
+    // });
+// })
